@@ -104,7 +104,7 @@ public class AutomaticSelectJPanel extends javax.swing.JPanel
             public void run() {
                 treeTable.getColumnModel().getColumn( 1 ).setMaxWidth( 100 );
                 treeTable.getColumnModel().getColumn( 2 ).setMaxWidth( 80 );
-                treeTable.getColumnModel().getColumn( 3 ).setMaxWidth( 80 );
+                //treeTable.getColumnModel().getColumn( 3 ).setMaxWidth( 80 );
             }
         });
         

@@ -80,7 +80,12 @@ public class AutomaticBindingListJPanel extends javax.swing.JPanel
     
     public void showTreeTable()    
     {
-        tableJScrollPane.setViewportView( treeTable );
+        SwingUtilities.invokeLater( new Runnable() {
+            @Override
+            public void run() {
+                tableJScrollPane.setViewportView( treeTable );
+            }
+        });
         
         SwingUtilities.invokeLater(new Runnable() {
             @Override
