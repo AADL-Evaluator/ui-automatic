@@ -211,9 +211,19 @@ public class AutomaticCreateStep1
                     // create the wrapper
                     System.out.println( "                   is COMPATIBLE with WRAPPER." );
                     
+                    String connection = b.toString();
+                    
+                    if( connection.contains( ":" ) )
+                    {
+                        connection = connection.substring( connection.indexOf( ":" ) + 1 ).trim();
+                    }
+                    
                     cloned.getBindings().add( b );
                     cloned.setStatus( AutomaticEvolution.STATUS_WARNING );
-                    cloned.getMessages().add( "A Wrapper was used in " + b.toString() + "." );
+                    cloned.getMessages().add( BindingUtils.isHardware( b )
+                        ? "A Hardware Conversor was used in " + connection + "." 
+                        : "A Wrapper was used in " + connection + "." 
+                    );
                     
                     break;
                 default:
@@ -222,6 +232,8 @@ public class AutomaticCreateStep1
         }
         catch( Exception err )
         {
+            err.printStackTrace();
+            
             cloned.setStatus( AutomaticEvolution.STATUS_IGNORED );
             cloned.getMessages().add( "ERROR: " + err.getMessage() );
         }

@@ -5,6 +5,7 @@ import fluent.gui.table.CustomTableColumn;
 import java.awt.Font;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.KeyEvent;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.Executor;
@@ -208,6 +209,12 @@ public class AutomaticEvolutionListJPanel extends javax.swing.JPanel
 
         jSplitPane1.setDividerLocation(300);
 
+        jTabbedPane1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabbedPane1MouseClicked(evt);
+            }
+        });
+
         detailJTextArea.setEditable(false);
         detailJTextArea.setColumns(20);
         detailJTextArea.setRows(5);
@@ -252,6 +259,25 @@ public class AutomaticEvolutionListJPanel extends javax.swing.JPanel
 
         add(jSplitPane1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked
+        if( evt.getClickCount() >= 3 )
+        {
+            SwingUtilities.invokeLater( new Runnable() {
+                @Override
+                public void run() {
+                    if( jTabbedPane1.getTabCount() == 1 )
+                    {
+                        jTabbedPane1.add( "Change View" , jScrollPane3 );
+                    }
+                    else
+                    {
+                        jTabbedPane1.remove( 1 );
+                    }
+                }
+            });
+        }
+    }//GEN-LAST:event_jTabbedPane1MouseClicked
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea detailJTextArea;
