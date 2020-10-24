@@ -5,7 +5,6 @@ import fluent.gui.table.CustomTableColumn;
 import java.awt.Font;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.awt.event.KeyEvent;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.Executor;
