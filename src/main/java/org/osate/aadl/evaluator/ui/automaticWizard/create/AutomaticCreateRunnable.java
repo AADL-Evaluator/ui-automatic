@@ -2,6 +2,7 @@ package org.osate.aadl.evaluator.ui.automaticWizard.create;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -36,7 +37,7 @@ public class AutomaticCreateRunnable implements Runnable
     
     private Collection<List<AutomaticEvolution>> step1_create()
     {
-        Map<AutomaticOptions,List<AutomaticEvolution>> evolutions = new HashMap<>();
+        Map<AutomaticOptions,List<AutomaticEvolution>> evolutions = new LinkedHashMap<>();
         
         for( AutomaticOptions options : panel.getOptions() )
         {

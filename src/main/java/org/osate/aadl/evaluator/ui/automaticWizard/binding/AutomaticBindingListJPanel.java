@@ -15,7 +15,6 @@ import javax.swing.SwingUtilities;
 import org.jdesktop.swingx.JXTreeTable;
 import org.jdesktop.swingx.treetable.DefaultMutableTreeTableNode;
 import org.jdesktop.swingx.treetable.TreeTableNode;
-import org.osate.aadl.evaluator.evolution.BindingUtils;
 import org.osate.aadl.evaluator.automatic.AutomaticBinding;
 import org.osate.aadl.evaluator.automatic.AutomaticOption;
 import org.osate.aadl.evaluator.automatic.AutomaticOptions;
@@ -169,11 +168,8 @@ public class AutomaticBindingListJPanel extends javax.swing.JPanel
                 AutomaticBinding ab = (AutomaticBinding) ((DefaultMutableTreeTableNode) 
                     n.getChildAt( j ))
                     .getUserObject();
-
-                if( BindingUtils.isAllPartsWereSetted( ab ) )
-                {
-                    op.getBindings().get( i ).add( ab );
-                }
+                
+                op.getBindings().get( i ).add( ab );
             }
         }
         

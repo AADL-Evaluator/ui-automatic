@@ -95,7 +95,7 @@ public class AutomaticEvolutionListJPanel extends javax.swing.JPanel
             }
         });
         
-        table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+        table.getSelectionModel().addListSelectionListener( new ListSelectionListener() {
             @Override
             public void valueChanged( ListSelectionEvent e ) {
                 detailJTextArea.setText( "" );

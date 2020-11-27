@@ -47,7 +47,7 @@ public class AutomaticCreateStep1
             evolution.getBindings().addAll( composition.getBindings() );
             
             System.out.println( "   candidate..: " + composition.getCandidates() );
-            System.out.println( "   binding....: " + composition.getBindings() );
+            System.out.println( "   binding....: " + composition.getBindings()   );
             
             evolutions.add( evolution );
             System.out.println( "   added!" );
@@ -193,41 +193,66 @@ public class AutomaticCreateStep1
         {
             System.out.println( "   binding: " + b );
             
-            switch ( BindingUtils.isCompatible( b ) )
+            if( !BindingUtils.isAllPartsWereSetted( b ) )
             {
-                case BindingUtils.TYPE_COMPATIBLE:
-                    System.out.println( "                   is COMPATIBLE." );
-                    
-                    cloned.getBindings().add( b );
-                    break;
-                case BindingUtils.TYPE_INCOMPATIBLE:
-                    System.out.println( "                   is INCOMPATIBLE." );
-                    
-                    cloned.getBindings().add( b );
-                    cloned.setStatus( AutomaticEvolution.STATUS_IGNORED );
-                    cloned.getMessages().add( "One of the connection is incompatible." );
-                    break;
-                case BindingUtils.TYPE_COMPATIBLE_WITH_WRAPPER:
-                    // create the wrapper
-                    System.out.println( "                   is COMPATIBLE with WRAPPER." );
-                    
+                System.out.println( "                   should be remove! A or B is empty." );
+                
+                if( b.getConnection() != null 
+                    && b.getConnection().getName() != null
+                    && !b.getConnection().getName().trim().isEmpty() )
+                {
                     String connection = b.toString();
-                    
+
                     if( connection.contains( ":" ) )
                     {
-                        connection = connection.substring( connection.indexOf( ":" ) + 1 ).trim();
+                        connection = connection.substring( 0 , connection.indexOf( ":" ) ).trim();
                     }
                     
+                    cloned.setStatus( AutomaticEvolution.STATUS_IGNORED );
                     cloned.getBindings().add( b );
-                    cloned.setStatus( AutomaticEvolution.STATUS_WARNING );
-                    cloned.getMessages().add( BindingUtils.isHardware( b )
-                        ? "A Hardware Conversor was used in " + connection + "." 
-                        : "A Wrapper was used in " + connection + "." 
+                    cloned.getMessages().add( 
+                        "The connection " + connection + " is incomplete and should be removed." 
                     );
-                    
-                    break;
-                default:
-                    System.out.println( "                   has an error." );
+                }
+            }
+            else
+            {
+                switch ( BindingUtils.isCompatible( b ) )
+                {
+                    case BindingUtils.TYPE_COMPATIBLE:
+                        System.out.println( "                   is COMPATIBLE." );
+
+                        cloned.getBindings().add( b );
+                        break;
+                    case BindingUtils.TYPE_INCOMPATIBLE:
+                        System.out.println( "                   is INCOMPATIBLE." );
+
+                        cloned.getBindings().add( b );
+                        cloned.setStatus( AutomaticEvolution.STATUS_IGNORED );
+                        cloned.getMessages().add( "One of the connection is incompatible." );
+                        break;
+                    case BindingUtils.TYPE_COMPATIBLE_WITH_WRAPPER:
+                        // create the wrapper
+                        System.out.println( "                   is COMPATIBLE with WRAPPER." );
+
+                        String connection = b.toString();
+
+                        if( connection.contains( ":" ) )
+                        {
+                            connection = connection.substring( connection.indexOf( ":" ) + 1 ).trim();
+                        }
+
+                        cloned.getBindings().add( b );
+                        cloned.setStatus( AutomaticEvolution.STATUS_WARNING );
+                        cloned.getMessages().add( BindingUtils.isHardware( b )
+                            ? "A Hardware Conversor was used in " + connection + "." 
+                            : "A Wrapper was used in " + connection + "." 
+                        );
+
+                        break;
+                    default:
+                        System.out.println( "                   has an error." );
+                }
             }
         }
         catch( Exception err )
